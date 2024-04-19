@@ -1,0 +1,207 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>ContactUS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/icon.avif' %}" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Company
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+      {% include 'header.html' %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs bg-info">
+      <div class="container" style="padding-top: 10;">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Registration Form</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Reg. Form</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Contact Section ======= -->
+    {% comment %} <div class="map-section">
+      <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+    </div> {% endcomment %}
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+          <center><h4><span style="color:rgb(0, 221, 255);"> Kindly share with us your requirement</span></h4></center>
+          <center><h5><span style="color:red;"> We are always willing to help you with our services:</span></h5></center>
+       
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          
+          <div class="col-lg-3">
+
+              <img src="{% static 'dashboard/assets/images/reg.jpg' %}" style="height:150px;width:100%;" />
+
+          </div>
+          
+          <div class="col-lg-6">
+            
+            <center>
+
+              {% for x in messages %}
+
+              <h5> 
+                  
+                <div id="myAlert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong style="color:green;">{{x}}</strong>
+                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              
+              <script>
+                  // Function to dismiss the alert after a specified duration
+                  function dismissAlert() {
+                      var alertDiv = document.getElementById('myAlert');
+                      if (alertDiv) {
+                          alertDiv.classList.add('fade');
+                          setTimeout(function() {
+                              alertDiv.style.display = 'none';
+                          }, 1000); // Change 1000 to the desired duration in milliseconds (e.g., 3000 for 3 seconds)
+                      }
+                  }
+              
+                  // Automatically dismiss the alert after 3 seconds (adjust the time as needed)
+                  setTimeout(dismissAlert, 3000); // 3000 milliseconds = 3 seconds
+              </script>
+              
+                                  
+              </h5>
+
+              {% endfor %}
+
+            </center>
+
+            <form action="{% url 'reg' %}" method="POST" name="contactus_form">
+              <!-- In front of action="this name should be technical name of function using contact.html page is showing on the browser which we write in urls.py file as views.reg" -->
+  
+              {% csrf_token %}
+      <!-- Cross-Site Request Forgery (CSRF) is an attack that forces authenticated users to submit a request to a Web application against which they are currently authenticated.
+      CSRF Token used to prevent unathorized person could not submit form from your website-->
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+              </div>
+              <br>
+
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+              </div>
+              <br>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Contact No." name="phone" required>
+              </div>
+              <br>
+
+              {% comment %} <div class="form-group">
+                <select class="form-control">
+
+                  <option> -- select location -- </option>
+
+                  {% for x in options %}
+                      <option value="{{ x.name }}"> {{ x.name }} </option>
+                  {% endfor %}
+              </select>
+      
+            </div> {% endcomment %}
+
+            <div class="form-group">
+              
+              <select class="form-control" name="dropdown">
+                  <option >-- Select Location --</option>
+                  <option value="Pune"> Pune </option>
+                  <option value="Mumbai"> Mumbai </option>
+                  <option value="Banglore"> Banglore </option>
+                  <option value="Delhi"> Delhi </option>
+                  <option value="Hydrabad"> Hydrabad </option>
+                
+              </select>
+          </div>
+<br>
+              <div class="form-group">
+                <textarea name="message" id="" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
+              </div>
+              <br>
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary py-3 px-5" name="submit">
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  
+        {% include 'footer.html' %}
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
